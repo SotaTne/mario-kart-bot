@@ -5,14 +5,21 @@ import { registerCommands } from "./shared/register-command";
 import { getDiscordApplicationURL } from "./config/configs";
 import { Env } from "./shared/hono-env";
 
+let isCommandsRegistered = false;
+
 const factory = createFactory<Env>({
   initApp: (app) => {
     app.use(async (c, next) => {
-      const applicationId = c.env.DISCORD_APPLICATION_ID;
-      const token = c.env.DISCORD_TOKEN;
-      const url = getDiscordApplicationURL(applicationId);
-      await registerCommands({ url, token });
-      await next();
+      if (isCommandsRegistered) {
+        await next();
+      } else {
+        const applicationId = c.env.DISCORD_APPLICATION_ID;
+        const token = c.env.DISCORD_TOKEN;
+        const url = getDiscordApplicationURL(applicationId);
+        await registerCommands({ url, token });
+        isCommandsRegistered = true;
+        await next();
+      }
     });
   },
 });
