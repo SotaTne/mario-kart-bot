@@ -1,7 +1,7 @@
 import { InteractionResponseType, InteractionType } from "discord-interactions";
 import { Hono } from "hono";
-import { commands } from "../discord-actions/commands/commands";
 import { verifyDiscordGuard } from "../guard/verify-discord.guard";
+import { CommandDispatcherUseCase } from "../usecase/command-dispatcher.usecase";
 
 const app = new Hono();
 
@@ -17,23 +17,11 @@ app.post("/", async (c, next) => {
       type: InteractionResponseType.PONG,
     });
   }
-
   if (message.type === InteractionType.APPLICATION_COMMAND) {
-    const command = commands.find((cmd) => cmd.name === message.data.name);
-
-    if (!command) {
-      return c.json({ error: "Command not found" }, 400);
-    }
-    try {
-      const action = command.action(message);
-      return (await action(c)) as unknown as Response;
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        console.log(err);
-      }
-      return c.json({ error: "Failed to execute command" }, 500);
-    }
+    const action = CommandDispatcherUseCase({ message });
+    return (await action(c)) as unknown as Response;
   }
+
   await next();
 });
 

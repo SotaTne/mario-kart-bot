@@ -1,4 +1,11 @@
-import { commands } from "./commands";
+import { ICommand } from "./commands.interface";
+import { HelloCommand } from "./hello.command";
+
+export function findCommand(name: string): ICommand | undefined {
+  return commands.find((command) => command.name === name);
+}
+
+export const commands = [HelloCommand];
 
 export async function registerCommands({
   url,
