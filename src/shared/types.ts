@@ -2,7 +2,7 @@ import type { Context, TypedResponse } from "hono";
 
 export type Action = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  message: any,
+  body: any,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...args: any
 ) => ActionAndResponse;

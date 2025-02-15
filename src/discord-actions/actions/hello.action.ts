@@ -2,7 +2,7 @@ import { InteractionResponseType } from "discord-interactions";
 import { Action } from "../../shared/types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-export const helloAction: Action = (message: any) => {
+export const helloAction: Action = (body: any) => {
   return async (c) => {
     console.log("run_hello");
     return c.json({

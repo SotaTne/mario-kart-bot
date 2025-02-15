@@ -13,8 +13,8 @@ export function CommandDispatcherUseCase({
     throw new HTTPException(404, { message: "Command not found" });
   }
   try {
-    const action = command.action(message);
-    return action;
+    const beforeAction = command.action(message);
+    return beforeAction;
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log(err);
