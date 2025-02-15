@@ -20,7 +20,7 @@ app.post("/", async (c, next) => {
     for (const command of commands) {
       if (command.name === message.data.name) {
         const action = command.action(message);
-        return action(c, next);
+        return await action(c, next);
       }
     }
     return c.json(
