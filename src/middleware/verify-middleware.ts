@@ -11,7 +11,7 @@ export function verifyDiscordMiddleware(): MiddlewareHandler<Env> {
     const isValidRequest =
       signature &&
       timestamp &&
-      verifyKey(body, signature, timestamp, c.env.DISCORD_PUBLIC_KEY);
+      (await verifyKey(body, signature, timestamp, c.env.DISCORD_PUBLIC_KEY));
 
     if (!isValidRequest) {
       console.error("Invalid request signature");
