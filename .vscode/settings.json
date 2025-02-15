@@ -25,5 +25,6 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true
-  }
+  },
+  "cSpell.words": ["usecase"]
 }

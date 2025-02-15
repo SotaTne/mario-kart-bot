@@ -2,7 +2,7 @@
 // インターフェースを使う際には、はじめにIをつけることと、
 // 1対1の関係になる際には、ファイル名に~.interface.tsとする
 
-import { Action } from "../shared/types";
+import { Action } from "../../shared/types";
 
 export interface ICommand {
   name: string;

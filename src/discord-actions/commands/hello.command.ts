@@ -6,5 +6,3 @@ export const HelloCommand: ICommand = {
   description: "Hello, world!",
   action: helloAction,
 };
-
-export const commands = [HelloCommand];
