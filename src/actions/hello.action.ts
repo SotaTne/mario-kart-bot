@@ -1,11 +1,12 @@
+import { InteractionResponseType } from "discord-interactions";
 import { Action } from "../shared/types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const helloAction: Action = (message: any) => {
   return async (c) => {
-    console.log(message);
+    console.log("run_hello");
     return c.json({
-      type: 1,
+      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: {
         content: "Hello, World!",
       },

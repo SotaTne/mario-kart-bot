@@ -17,18 +17,20 @@ app.post("/", async (c, next) => {
   }
 
   if (message.type === InteractionType.APPLICATION_COMMAND) {
-    for (const command of commands) {
-      if (command.name === message.data.name) {
-        const action = command.action(message);
-        return await action(c, next);
-      }
+    const command = commands.find((cmd) => cmd.name === message.data.name);
+
+    if (!command) {
+      return c.json({ error: "Command not found" }, 400);
     }
-    return c.json(
-      {
-        error: "Command not found",
-      },
-      400,
-    );
+    try {
+      const action = command.action(message);
+      return (await action(c)) as unknown as Response;
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.log(err);
+      }
+      return c.json({ error: "Failed to execute command" }, 500);
+    }
   }
   await next();
 });
