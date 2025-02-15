@@ -1,9 +1,8 @@
-import { verifyDiscordMiddleware } from "./middleware/verify-middleware";
-import commandController from "./controller/command.controller";
 import { createFactory } from "hono/factory";
-import { registerCommands } from "./shared/register-command";
+import { registerCommands } from "./discord-actions/commands/command-register";
 import { getDiscordApplicationURL } from "./config/configs";
 import { Env } from "./shared/hono-env";
+import RouterApp from "./controller/router";
 
 let isCommandsRegistered = false;
 
@@ -25,11 +24,6 @@ const factory = createFactory<Env>({
 });
 
 const app = factory.createApp();
-app.get("/", (c) => {
-  console.log(c.env);
-  return c.text(`hi 👋 ${c.env.DISCORD_APPLICATION_ID}`);
-});
-app.use(verifyDiscordMiddleware());
-app.route("/", commandController);
+app.route("/", RouterApp);
 
 export default app;

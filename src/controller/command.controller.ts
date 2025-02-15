@@ -1,9 +1,11 @@
 import { InteractionResponseType, InteractionType } from "discord-interactions";
 import { Hono } from "hono";
-import { commands } from "../commands/commands";
+import { commands } from "../discord-actions/commands/commands";
+import { verifyDiscordGuard } from "../guard/verify-discord.guard";
 
 const app = new Hono();
 
+app.use(verifyDiscordGuard());
 app.post("/", async (c, next) => {
   const message = await c.req.json();
 

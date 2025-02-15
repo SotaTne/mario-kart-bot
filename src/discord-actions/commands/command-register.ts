@@ -1,4 +1,4 @@
-import { commands } from "../commands/commands";
+import { commands } from "./commands";
 
 export async function registerCommands({
   url,
