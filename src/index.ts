@@ -20,7 +20,7 @@ const factory = createFactory<Env>({
 const app = factory.createApp();
 app.get("/", (c) => {
   console.log(c.env);
-  return c.text(`👋 ${c.env.DISCORD_APPLICATION_ID}`);
+  return c.text(`hi 👋 ${c.env.DISCORD_APPLICATION_ID}`);
 });
 app.use(verifyDiscordMiddleware());
 app.route("/", commandController);
