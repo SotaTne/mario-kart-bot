@@ -1,6 +1,7 @@
 import { MiddlewareHandler } from "hono";
 import { Env } from "../shared/hono-env";
 import { verifyKey } from "discord-interactions";
+import { HTTPException } from "hono/http-exception";
 
 export function verifyDiscordGuard(): MiddlewareHandler<Env> {
   return async (c, next) => {
@@ -15,7 +16,7 @@ export function verifyDiscordGuard(): MiddlewareHandler<Env> {
 
     if (!isValidRequest) {
       console.error("Invalid request signature");
-      return c.text("Bad request signature", 401);
+      throw new HTTPException(401, { message: "Invalid request signature" });
     }
     await next();
   };

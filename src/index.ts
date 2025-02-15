@@ -1,5 +1,5 @@
 import { createFactory } from "hono/factory";
-import { registerCommands } from "./discord-actions/commands/command-register";
+import { registerCommands } from "./discord-actions/commands";
 import { getDiscordApplicationURL } from "./config/configs";
 import { Env } from "./shared/hono-env";
 import RouterApp from "./controller/router";
