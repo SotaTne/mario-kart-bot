@@ -9,8 +9,8 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v3
-      - name: Install Wrangler
-        run: npm install -g wrangler@latest
+      - name: Install Dependencies
+        run: npm install
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
