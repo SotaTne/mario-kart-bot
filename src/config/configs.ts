@@ -3,3 +3,9 @@
 
 export const getDiscordApplicationURL = (applicationId: string): string =>
   `https://discord.com/api/v10/applications/${applicationId}/commands`;
+
+export const getDiscordGuildURL = (
+  applicationId: string,
+  guildId: string,
+): string =>
+  `https://discord.com/api/v10/applications/${applicationId}/guilds/${guildId}/commands`;

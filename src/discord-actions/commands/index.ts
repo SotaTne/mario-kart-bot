@@ -1,11 +1,11 @@
-import { ICommand } from "./commands.interface";
+import { ICommand } from "../../domain/interface/discord-actions/commands.interface";
 import { HelloCommand } from "./hello.command";
+
+export const commands = [HelloCommand];
 
 export function findCommand(name: string): ICommand | undefined {
   return commands.find((command) => command.name === name);
 }
-
-export const commands = [HelloCommand];
 
 export async function registerCommands({
   url,
@@ -22,9 +22,8 @@ export async function registerCommands({
     method: "PUT",
     body: JSON.stringify(
       commands.map((command) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { action, ...rest } = command;
-        return rest;
+        const { name, description } = command;
+        return { name, description };
       }),
     ),
   });
