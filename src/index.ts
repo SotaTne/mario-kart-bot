@@ -1,8 +1,8 @@
 import { createFactory } from "hono/factory";
-import { registerCommands } from "./discord-actions/commands";
 import { getDiscordApplicationURL } from "./config/configs";
 import { Env } from "./shared/hono-env";
 import RouterApp from "./controller/router";
+import { CommandManager } from "./discord-actions/commands/command-manager";
 
 let isCommandsRegistered = false;
 
@@ -15,7 +15,8 @@ const factory = createFactory<Env>({
         const applicationId = c.env.DISCORD_APPLICATION_ID;
         const token = c.env.DISCORD_TOKEN;
         const url = getDiscordApplicationURL(applicationId);
-        await registerCommands({ url, token });
+        const commandManager = CommandManager;
+        await commandManager.registerCommands({ url, token });
         isCommandsRegistered = true;
         await next();
       }
