@@ -1,6 +1,7 @@
 import { HTTPException } from "hono/http-exception";
-import { findCommand } from "../discord-actions/commands";
 import { ActionAndResponse } from "../shared/types";
+import { CommandManager } from "../discord-actions/commands/command-manager";
+import { ICommandManager } from "../domain/interface/discord-actions/commands/command-manager.interface";
 
 export function CommandDispatcherUseCase({
   message,
@@ -8,7 +9,9 @@ export function CommandDispatcherUseCase({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   message: any;
 }): ActionAndResponse {
-  const command = findCommand(message.data.name);
+  const commandManager: ICommandManager = CommandManager;
+
+  const command = commandManager.findCommand(message.data.name);
   if (!command) {
     throw new HTTPException(404, { message: "Command not found" });
   }

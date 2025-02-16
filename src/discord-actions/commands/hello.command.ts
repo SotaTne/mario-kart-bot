@@ -1,8 +1,8 @@
-import { ICommand } from "../../domain/interface/discord-actions/commands.interface";
+import { CommandEntity } from "../../domain/entity/discord-actions/commands/command.entity";
 import { helloAction } from "../actions/hello.action";
 
-export const HelloCommand: ICommand = {
+export const HelloCommand: CommandEntity = new CommandEntity({
   name: "hello",
-  description: "Hello, world!",
+  description: "Says hello",
   action: helloAction,
-};
+});
