@@ -2,6 +2,7 @@ import { Action } from "../../../../shared/types";
 
 type WebhookEntityProps = {
   pathName: string;
+  description: string;
   action: Action;
 };
 
@@ -17,5 +18,9 @@ export class WebhookEntity {
 
   get action(): Action {
     return this.props.action;
+  }
+
+  get description(): string {
+    return this.props.description;
   }
 }
