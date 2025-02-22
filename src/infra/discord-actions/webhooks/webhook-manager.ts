@@ -1,5 +1,5 @@
-import { WebhookEntity } from "../../domain/entity/discord-actions/webhooks/webhook.entity";
-import { IWebhookManager } from "../../domain/interface/discord-actions/webhooks/webhook-manager.interface";
+import { WebhookEntity } from "../../../domain/entity/discord-actions/webhooks/webhook.entity";
+import { IWebhookManager } from "../../../domain/interface/discord-actions/webhooks/webhook-manager.interface";
 import { TimerWebhook } from "./timer.webhook";
 
 const webhooks: WebhookEntity[] = [TimerWebhook];

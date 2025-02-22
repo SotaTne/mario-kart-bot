@@ -1,6 +1,7 @@
+import { IWebhookManager } from "@/domain/interface/discord-actions/webhooks/webhook-manager.interface";
+import { WebhookManager } from "@/infra/discord-actions/webhooks/webhook-manager";
+import { ActionAndResponse } from "@/shared/types";
 import { HTTPException } from "hono/http-exception";
-import { WebhookManager } from "../discord-actions/webhooks/webhook-manager";
-import { ActionAndResponse } from "../shared/types";
 
 export function WebhookDispatcherUsecase({
   webhookName,
@@ -10,7 +11,7 @@ export function WebhookDispatcherUsecase({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   body: any;
 }): ActionAndResponse {
-  const webhookManager = WebhookManager;
+  const webhookManager: IWebhookManager = WebhookManager;
   const webhook = webhookManager.findWebhook(webhookName);
   if (!webhook) {
     throw new HTTPException(404, { message: "Webhook not found" });

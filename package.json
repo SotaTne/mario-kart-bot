@@ -2,7 +2,9 @@
   "name": "mario-kart-bot",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify"
+    "deploy": "wrangler deploy --minify",
+    "format": "prettier --write .",
+    "lint": "eslint ."
   },
   "dependencies": {
     "discord-interactions": "^4.1.1",
