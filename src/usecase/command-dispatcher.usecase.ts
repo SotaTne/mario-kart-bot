@@ -1,7 +1,7 @@
+import { ICommandManager } from "@/domain/interface/discord-actions/commands/command-manager.interface";
+import { CommandManager } from "@/infra/discord-actions/commands/command-manager";
+import { ActionAndResponse } from "@/shared/types";
 import { HTTPException } from "hono/http-exception";
-import { ActionAndResponse } from "../shared/types";
-import { CommandManager } from "../discord-actions/commands/command-manager";
-import { ICommandManager } from "../domain/interface/discord-actions/commands/command-manager.interface";
 
 export function CommandDispatcherUseCase({
   message,

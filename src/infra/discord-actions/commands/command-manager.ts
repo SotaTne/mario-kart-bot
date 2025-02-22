@@ -1,5 +1,5 @@
-import { CommandEntity } from "../../domain/entity/discord-actions/commands/command.entity";
-import { ICommandManager } from "../../domain/interface/discord-actions/commands/command-manager.interface";
+import { CommandEntity } from "@/domain/entity/discord-actions/commands/command.entity";
+import { ICommandManager } from "@/domain/interface/discord-actions/commands/command-manager.interface";
 import { HelloCommand } from "./hello.command";
 
 const commands: CommandEntity[] = [HelloCommand];

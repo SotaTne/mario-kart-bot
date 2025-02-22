@@ -1,8 +1,8 @@
 import { createFactory } from "hono/factory";
-import { getDiscordApplicationURL } from "./config/configs";
 import { Env } from "./shared/hono-env";
+import { getDiscordApplicationURL } from "./config/configs";
+import { CommandManager } from "./infra/discord-actions/commands/command-manager";
 import RouterApp from "./controller/router";
-import { CommandManager } from "./discord-actions/commands/command-manager";
 
 let isCommandsRegistered = false;
 
