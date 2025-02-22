@@ -1,4 +1,4 @@
-import { Action } from "../../../../shared/types";
+import { Action } from "@/shared/types";
 
 type WebhookEntityProps = {
   pathName: string;

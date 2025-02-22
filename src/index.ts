@@ -1,8 +1,7 @@
 import { createFactory } from "hono/factory";
 import { Env } from "./shared/hono-env";
-import { getDiscordApplicationURL } from "./config/configs";
-import { CommandManager } from "./infra/discord-actions/commands/command-manager";
 import RouterApp from "./controller/router";
+import { RegisterCommandUseCase } from "./usecase/register-command.usecase";
 
 let isCommandsRegistered = false;
 
@@ -12,11 +11,7 @@ const factory = createFactory<Env>({
       if (isCommandsRegistered) {
         await next();
       } else {
-        const applicationId = c.env.DISCORD_APPLICATION_ID;
-        const token = c.env.DISCORD_TOKEN;
-        const url = getDiscordApplicationURL(applicationId);
-        const commandManager = CommandManager;
-        await commandManager.registerCommands({ url, token });
+        await RegisterCommandUseCase(c);
         isCommandsRegistered = true;
         await next();
       }
