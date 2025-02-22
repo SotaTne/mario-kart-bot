@@ -1,4 +1,4 @@
-import { CommandEntity } from "../../../entity/discord-actions/commands/command.entity";
+import { CommandEntity } from "@/domain/entity/discord-actions/commands/command.entity";
 
 export interface ICommandManager {
   findCommand(commandName: string): CommandEntity | undefined;

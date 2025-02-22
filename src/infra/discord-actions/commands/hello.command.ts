@@ -2,7 +2,7 @@ import { CommandEntity } from "@/domain/entity/discord-actions/commands/command.
 import { helloAction } from "../actions/hello.action";
 
 export const HelloCommand: CommandEntity = new CommandEntity({
-  name: "hello/world",
+  name: "hello",
   description: "Says hello",
   action: helloAction,
 });
