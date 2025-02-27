@@ -1,25 +1,53 @@
 import { InteractionResponseType, InteractionType } from "discord-interactions";
 import { Hono } from "hono";
 import { verifyDiscordGuard } from "../guard/verify-discord.guard";
-import { CommandDispatcherUseCase } from "../usecase/command-dispatcher.usecase";
+import { HonoEnv } from "@/shared/hono-env";
+import { CommandManager } from "@/infra/discord-actions/commands/command-manager";
 
-const app = new Hono();
+const app = new Hono<HonoEnv>();
 
 app.use(verifyDiscordGuard());
 app.post("/", async (c, next) => {
   const message = await c.req.json();
+  switch (message.type) {
+    case InteractionType.PING:
+      // The `PING` message is used during the initial webhook handshake, and is
+      // required to configure the webhook in the developer portal.
+      return c.json({
+        type: InteractionResponseType.PONG,
+      });
 
-  // ディスコードにサーバーの存在を伝える
-  if (message.type === InteractionType.PING) {
-    // The `PING` message is used during the initial webhook handshake, and is
-    // required to configure the webhook in the developer portal.
-    return c.json({
-      type: InteractionResponseType.PONG,
-    });
-  }
-  if (message.type === InteractionType.APPLICATION_COMMAND) {
-    const action = CommandDispatcherUseCase({ message });
-    return (await action(c)) as unknown as Response;
+    // commandAction
+    case InteractionType.APPLICATION_COMMAND: {
+      const responseJson = (await (
+        await CommandManager.runCommand({
+          c,
+          commandName: message.data.name,
+          bodyJson: message,
+          guildId: message.guild_id,
+        })
+      )
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .json()) as any;
+      return c.json(responseJson);
+    }
+
+    // otherAction
+    case InteractionType.MESSAGE_COMPONENT:
+    case InteractionType.APPLICATION_COMMAND_AUTOCOMPLETE:
+    case InteractionType.MODAL_SUBMIT: {
+      const responseJson = (await (
+        await CommandManager.runCommand({
+          c,
+          commandName: message.data.name,
+          bodyJson: message,
+          guildId: message.guild_id,
+        })
+      )
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .json()) as any;
+      return c.json(responseJson);
+    }
   }
 
   await next();
