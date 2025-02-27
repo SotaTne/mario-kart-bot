@@ -12,5 +12,3 @@ overrides:
     options:
       trailingComma: none
       parser: jsonc
-
-    

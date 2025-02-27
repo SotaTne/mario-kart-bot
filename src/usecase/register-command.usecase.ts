@@ -9,5 +9,5 @@ export async function RegisterCommandUseCase(c: Context<HonoEnv>) {
   const token = c.env.DISCORD_TOKEN;
   const url = getDiscordApplicationURL(applicationId);
   const commandManager: ICommandManager = CommandManager;
-  await commandManager.registerCommands({ url, token });
+  await commandManager.registerCommands({ url, token, c });
 }

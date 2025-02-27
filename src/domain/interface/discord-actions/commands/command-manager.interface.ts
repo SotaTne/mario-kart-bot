@@ -20,9 +20,11 @@ export interface ICommandManager {
   registerCommands({
     url,
     token,
+    c,
   }: {
     url: string;
     token: string;
+    c: Context;
   }): Promise<Response>;
 
   runCommand({

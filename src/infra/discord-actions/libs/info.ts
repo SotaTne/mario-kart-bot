@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HonoEnv } from "@/shared/hono-env";
 import { Context } from "hono";
+import { HTTPException } from "hono/http-exception";
 
 export async function getInfo(c: Context<HonoEnv>) {
-  const info = (await (
-    await //c.env.DISCORD_BOT_EXTENSION.fetch("/info")
-    fetch(
-      "https://eb7b2938-discord-bot-extension.motarou-engineer.workers.dev/info",
-    )
-  ).json()) as { commands?: any; webhooks?: any; otherEvents?: any };
+  const response = await c.env.DISCORD_BOT_EXTENSION.fetch("/info");
+  if (!response.ok) {
+    throw new HTTPException(500, { message: "Error fetching info" });
+  }
+  const info = (await response.json()) as {
+    commands?: any;
+    webhooks?: any;
+    otherEvents?: any;
+  };
   const returnObject: {
     commands: {
       name: string;
@@ -36,6 +40,6 @@ export async function getInfo(c: Context<HonoEnv>) {
   if (info?.otherEvents) {
     returnObject.otherEvents = info.otherEvents;
   }
-  console.error("info", returnObject);
+  console.log("log", returnObject);
   return returnObject;
 }

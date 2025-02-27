@@ -53,13 +53,14 @@ export const CommandManager: ICommandManager = {
     token: string;
     c: Context<HonoEnv>;
   }): Promise<Response> {
+    const info = await getInfo(c);
     const response = await fetch(url, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bot ${token}`,
       },
       method: "PUT",
-      body: JSON.stringify((await getInfo(c)).commands),
+      body: JSON.stringify(info.commands),
     });
 
     if (response.ok) {
