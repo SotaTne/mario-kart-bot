@@ -33,5 +33,6 @@ export async function getInfo(c: Context<HonoEnv>) {
   if (info?.otherEvents) {
     returnObject.otherEvents = info.otherEvents;
   }
+  console.error("info", returnObject);
   return returnObject;
 }
