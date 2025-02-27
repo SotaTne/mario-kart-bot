@@ -4,7 +4,10 @@ import { Context } from "hono";
 
 export async function getInfo(c: Context<HonoEnv>) {
   const info = (await (
-    await c.env.DISCORD_BOT_EXTENSION.fetch("/info")
+    await //c.env.DISCORD_BOT_EXTENSION.fetch("/info")
+    fetch(
+      "https://eb7b2938-discord-bot-extension.motarou-engineer.workers.dev/info",
+    )
   ).json()) as { commands?: any; webhooks?: any; otherEvents?: any };
   const returnObject: {
     commands: {
