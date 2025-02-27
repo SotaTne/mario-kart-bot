@@ -8,6 +8,7 @@ overrides:
   - files:
       - ".vscode/*.json"
       - "tsconfig.json"
+      - "wrangler.jsonc"
     options:
       trailingComma: none
       parser: jsonc

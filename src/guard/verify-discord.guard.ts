@@ -1,9 +1,9 @@
 import { MiddlewareHandler } from "hono";
-import { Env } from "../shared/hono-env";
+import { HonoEnv } from "../shared/hono-env";
 import { verifyKey } from "discord-interactions";
 import { HTTPException } from "hono/http-exception";
 
-export function verifyDiscordGuard(): MiddlewareHandler<Env> {
+export function verifyDiscordGuard(): MiddlewareHandler<HonoEnv> {
   return async (c, next) => {
     const signature = c.req.header("x-signature-ed25519");
     const timestamp = c.req.header("x-signature-timestamp");
