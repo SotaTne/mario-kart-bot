@@ -6,7 +6,7 @@
   "services": [
     {
       "binding": "DISCORD_BOT_EXTENSION",
-      "service": "discord-bot_extension"
+      "service": "discord-bot-extension"
     }
   ]
 }
